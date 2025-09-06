@@ -1,0 +1,21 @@
+# venv / credenciais
+.venv/
+.env
+*.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Dados gerados (não versionar)
+data/images/
+data/output/
+data/*.sqlite*
+*.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# SO
+.DS_Store
+Thumbs.db
