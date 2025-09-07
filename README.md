@@ -1,7 +1,7 @@
 # Leitura Automática de Placas (ALPR)
 
 **Objetivo:** identificar e registrar automaticamente placas de veículos a partir de imagens, para controle de entradas/saídas em estacionamentos comunitários.  
-**Equipe:** Victor Kainã (eu), Rodrigo Avelino, João Vitor e Guilherme Paiva.  
+**Equipe:** Victor Kainã, Rodrigo Avelino, João Vitor e Guilherme Paiva.  
 **Repo:** https://github.com/Kainan7/leitura-automatica-placas
 
 ---
