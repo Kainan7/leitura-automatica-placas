@@ -18,6 +18,7 @@
 ---
 
 ## 🧱 Estrutura
+```text
 .
 ├── src/
 │ ├── app_cli.py # CLI (processa uma imagem ou pasta)
@@ -38,7 +39,7 @@
 └── output/ # saídas (recortes/anotações)
 
 yaml
-Copiar código
+```
 
 > Dica: execute sempre a partir da **raiz** do projeto.
 
