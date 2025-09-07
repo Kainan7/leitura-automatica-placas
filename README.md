@@ -66,7 +66,6 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 
 PowerShell
-
 git clone https://github.com/Kainan7/leitura-automatica-placas.git
 cd leitura-automatica-placas
 
@@ -75,6 +74,7 @@ python -m venv .venv
 
 python -m pip install --upgrade pip
 pip install -r requirements.txt
+
 ⚙️ Configuração (.env) e banco
 Crie um .env (ou copie de .env.example):
 
@@ -84,12 +84,10 @@ IMAGE_DIR=data/images
 OUTPUT_DIR=data/output
 Inicialize o banco:
 
-bash
 python scripts/init_db.py
+
 🧪 Teste rápido (CLI)
 Coloque imagens em data/images/ e rode:
-
-bash
 python -m src.app_cli --input data/images
 # PNG:
 # python -m src.app_cli --input data/images --pattern "*.png"
@@ -98,31 +96,26 @@ Saídas em data/output/ e registros no data/acessos.sqlite3.
 📓 Notebook PDI
 Registrar a venv como kernel:
 
-bash
 python -m pip install ipykernel
 python -m ipykernel install --user --name alpr-venv --display-name "Python (alpr-venv)"
+
 Abrir:
 
-bash
 jupyter notebook
 Abrir PDI_ALPR_Exploracao.ipynb (ou src/pdi_alpr_exploracao.ipynb), selecionar o kernel Python (alpr-venv) e executar.
 Mostra: dimensões, grayscale + min/max, histogramas, equalização e CLAHE, detecção/crop e OCR.
 
 🌐 Aplicação Web (Streamlit)
-bash
 pip install streamlit
 streamlit run app_streamlit.py
 Abas
-📷 Processar imagem
 
+📷 Processar imagem
 Upload → expander “Análise PDI (modo notebook)” (grayscale/histogramas/equalização/CLAHE/detecção/crop/candidatos) → Processar (salva por hash, roda pipeline e grava no banco).
 
 🔎 Consultar registros
-
 Filtro por trecho de placa e intervalo de datas.
-
 Agrupar por placa (mostra só o mais recente por placa).
-
 Evitamos duplicados: upload salvo por hash e janela de idempotência por (fonte+placa) na pipeline.
 
 🧰 Comandos úteis
@@ -134,18 +127,17 @@ PowerShell: .\\.venv\\Scripts\\Activate.ps1
 
 Ver últimos registros:
 
-bash
 python - << 'PY'
 from src.db import SessionLocal, AccessRecord
 s=SessionLocal()
 print([(r.id,r.plate_text,round(r.confidence or 0,2),r.created_at) for r in s.query(AccessRecord).order_by(AccessRecord.id.desc()).limit(10)])
 s.close()
 PY
-Limpar saídas:
 
-bash
+Limpar saídas:
 rm -f data/output/*     # Git Bash
 # del data\output\* -Force  (PowerShell)
+
 🛠️ Solução de problemas
 ModuleNotFoundError: dotenv → ative a venv e pip install -r requirements.txt.
 
