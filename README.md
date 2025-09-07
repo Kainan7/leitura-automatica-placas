@@ -158,3 +158,34 @@ Dockerfile/Compose.
 
 📄 Licença
 MIT (adicione LICENSE se desejar).
+
+### Técnicas utilizadas (MVP)
+
+**Pré-processamento (PDI)**
+- Conversão para tons de cinza (BGR → Gray)
+- Equalização de histograma e **CLAHE** (na análise PDI)
+- **Inner-crop** (~8% das bordas) no recorte da placa para reduzir ruído (moldura/parafusos)
+
+**Detecção de placa (baseline)**
+- **Bordas/contornos** + heurísticas geométricas (razão de aspecto, área) para estimar a **bbox**
+
+**OCR e pós-processamento**
+- **EasyOCR** (pt/en/es)
+- Normalização/limpeza + correções de ambiguidade: **O↔0, I↔1, S↔5, B↔8, Z↔2**
+- **Validação por regex** dos formatos: `AAA9999`, `AAA9A99`, `CC5220`, `ABC123`, `AA000AA`
+
+**Persistência e idempotência**
+- **SQLite + SQLAlchemy**
+- Upload salvo por **hash**; janela curta evita duplicatas por *(fonte+placa)*
+
+### Fluxo de processamento
+
+1. **Entrada**: caminho da imagem  
+2. **Carregar** (OpenCV)  
+3. **Detecção** por contornos → **bbox**  
+4. **Recorte** da placa + **inner-crop**  
+5. **OCR (EasyOCR)** no recorte  
+6. **Pós-processamento**: normaliza, corrige, **valida por regex**, escolhe melhor candidato  
+7. **Anotação**: desenha bbox/texto na original  
+8. **Salvar saídas** (recorte/anotada) e **gravar no SQLite** (com proteção de duplicidade)  
+9. **Retorno**: `id`, `plate_text`, `confidence`, `crop_path`, `annotated_path`, `candidates`
