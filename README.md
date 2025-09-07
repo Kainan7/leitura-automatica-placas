@@ -63,9 +63,9 @@ source .venv/Scripts/activate
 
 python -m pip install --upgrade pip
 pip install -r requirements.txt
+
 PowerShell
-powershell
-Copiar código
+
 git clone https://github.com/Kainan7/leitura-automatica-placas.git
 cd leitura-automatica-placas
 
@@ -78,20 +78,17 @@ pip install -r requirements.txt
 Crie um .env (ou copie de .env.example):
 
 ini
-Copiar código
 DB_URL=sqlite:///data/acessos.sqlite3
 IMAGE_DIR=data/images
 OUTPUT_DIR=data/output
 Inicialize o banco:
 
 bash
-Copiar código
 python scripts/init_db.py
 🧪 Teste rápido (CLI)
 Coloque imagens em data/images/ e rode:
 
 bash
-Copiar código
 python -m src.app_cli --input data/images
 # PNG:
 # python -m src.app_cli --input data/images --pattern "*.png"
@@ -101,20 +98,17 @@ Saídas em data/output/ e registros no data/acessos.sqlite3.
 Registrar a venv como kernel:
 
 bash
-Copiar código
 python -m pip install ipykernel
 python -m ipykernel install --user --name alpr-venv --display-name "Python (alpr-venv)"
 Abrir:
 
 bash
-Copiar código
 jupyter notebook
 Abrir PDI_ALPR_Exploracao.ipynb (ou src/pdi_alpr_exploracao.ipynb), selecionar o kernel Python (alpr-venv) e executar.
 Mostra: dimensões, grayscale + min/max, histogramas, equalização e CLAHE, detecção/crop e OCR.
 
 🌐 Aplicação Web (Streamlit)
 bash
-Copiar código
 pip install streamlit
 streamlit run app_streamlit.py
 Abas
@@ -140,7 +134,6 @@ PowerShell: .\\.venv\\Scripts\\Activate.ps1
 Ver últimos registros:
 
 bash
-Copiar código
 python - << 'PY'
 from src.db import SessionLocal, AccessRecord
 s=SessionLocal()
@@ -150,7 +143,6 @@ PY
 Limpar saídas:
 
 bash
-Copiar código
 rm -f data/output/*     # Git Bash
 # del data\output\* -Force  (PowerShell)
 🛠️ Solução de problemas
